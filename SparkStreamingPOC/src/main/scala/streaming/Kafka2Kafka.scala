@@ -16,6 +16,7 @@ object Kafka2Kafka extends App{
 
    val kafkaRawData = df.selectExpr("CAST(key AS STRING)", "CAST(value AS string)", "topic", "partition", "offset", "timestamp","timestampType")
    val kafkaWriteStream = kafkaRawData.writeStream.format("kafka").option("topic", "test2")
-        .option("checkpointLocation","C:\\checkpoint").option("kafka.bootstrap.servers", "localhost:9092")
+        .option("checkpointLocation","C:\\checkpoint")
+        .option("kafka.bootstrap.servers", "localhost:9092")
         .start().awaitTermination()
 }

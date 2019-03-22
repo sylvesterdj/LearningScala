@@ -30,7 +30,8 @@ object Rate2KafkaMultiStream extends App {
     .queryName("Second Kafka Stream")
     .format("kafka")
     .option("topic", "test2")
-    .option("checkpointLocation", "C:\\sparkCheckPoint\\Rate2KafkaMultiStream\\cp2").option("kafka.bootstrap.servers", "localhost:9092")
+    .option("checkpointLocation", "C:\\sparkCheckPoint\\Rate2KafkaMultiStream\\cp2")
+    .option("kafka.bootstrap.servers", "localhost:9092")
     .trigger(Trigger.ProcessingTime("10 seconds"))
     .start()
 
