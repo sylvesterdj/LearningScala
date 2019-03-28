@@ -1,4 +1,4 @@
-package streaming
+package streaming.kafka
 
 import org.apache.log4j.{Level, LogManager}
 import org.apache.spark.sql.SparkSession
@@ -28,7 +28,7 @@ object Rate2KafkaSparkListener extends App {
     .format("kafka")
     .queryName("First Kafka Stream")
     .option("topic", "test2")
-    .option("checkpointLocation", "C:\\sparkCheckPoint\\Rate2KafkaSparkListener\\cp1").option("kafka.bootstrap.servers", "localhost:9092")
+    .option("checkpointLocation", "sparkCheckPoint\\Rate2KafkaSparkListener\\cp1").option("kafka.bootstrap.servers", "localhost:9092")
     .trigger(Trigger.ProcessingTime("10 seconds"))
     .start()
 
@@ -36,7 +36,7 @@ object Rate2KafkaSparkListener extends App {
 //    .format("kafka")
 //    .queryName("Second Kafka Stream")
 //    .option("topic", "test2")
-//    .option("checkpointLocation", "C:\\sparkCheckPoint\\Rate2KafkaSparkListener\\cp2").option("kafka.bootstrap.servers", "localhost:9092")
+//    .option("checkpointLocation", "sparkCheckPoint\\Rate2KafkaSparkListener\\cp2").option("kafka.bootstrap.servers", "localhost:9092")
 //    .trigger(Trigger.ProcessingTime("20 seconds"))
 //    .start()
 

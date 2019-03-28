@@ -43,7 +43,7 @@ object MultiStreamTODO extends App {
     .format("kafka")
     .queryName("First Kafka Stream")
     .option("topic", "test2")
-    .option("checkpointLocation", "C:\\sparkCheckPoint\\StreamingListenerKafkaNotifier\\cp1")
+    .option("checkpointLocation", "sparkCheckPoint\\StreamingListenerKafkaNotifier\\cp1")
     .option("kafka.bootstrap.servers", "localhost:9092")
     .trigger(Trigger.ProcessingTime("10 seconds"))
     .start()

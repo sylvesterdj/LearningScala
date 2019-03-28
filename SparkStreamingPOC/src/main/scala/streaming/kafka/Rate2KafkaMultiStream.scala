@@ -1,7 +1,7 @@
-package streaming
+package streaming.kafka
 
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.streaming.{ProcessingTime, Trigger}
+import org.apache.spark.sql.streaming.Trigger
 
 object Rate2KafkaMultiStream extends App {
 
@@ -22,7 +22,7 @@ object Rate2KafkaMultiStream extends App {
     .queryName("First Kafka Stream")
     .format("kafka")
     .option("topic", "test2")
-    .option("checkpointLocation", "C:\\sparkCheckPoint\\Rate2KafkaMultiStream\\cp1").option("kafka.bootstrap.servers", "localhost:9092")
+    .option("checkpointLocation", "sparkCheckPoint\\Rate2KafkaMultiStream\\cp1").option("kafka.bootstrap.servers", "localhost:9092")
     .trigger(Trigger.ProcessingTime("10 seconds"))
     .start()
 
@@ -30,7 +30,7 @@ object Rate2KafkaMultiStream extends App {
     .queryName("Second Kafka Stream")
     .format("kafka")
     .option("topic", "test2")
-    .option("checkpointLocation", "C:\\sparkCheckPoint\\Rate2KafkaMultiStream\\cp2")
+    .option("checkpointLocation", "sparkCheckPoint\\Rate2KafkaMultiStream\\cp2")
     .option("kafka.bootstrap.servers", "localhost:9092")
     .trigger(Trigger.ProcessingTime("10 seconds"))
     .start()

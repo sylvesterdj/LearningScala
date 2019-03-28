@@ -1,5 +1,4 @@
-package streaming
-
+package streaming.kafka
 
 import org.apache.spark.sql.SparkSession
 
@@ -16,7 +15,7 @@ object Kafka2Kafka extends App{
 
    val kafkaRawData = df.selectExpr("CAST(key AS STRING)", "CAST(value AS string)", "topic", "partition", "offset", "timestamp","timestampType")
    val kafkaWriteStream = kafkaRawData.writeStream.format("kafka").option("topic", "test2")
-        .option("checkpointLocation","C:\\checkpoint")
+        .option("checkpointLocation","sparkCheckPoint\\Kafka2Kafka")
         .option("kafka.bootstrap.servers", "localhost:9092")
         .start().awaitTermination()
 }
