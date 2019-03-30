@@ -1,7 +1,6 @@
 package streaming
 
-import java.sql.Timestamp
-
+import entity.RateData
 import listener.KafkaMetrics
 import org.apache.log4j.{Level, LogManager}
 import org.apache.spark.sql.SparkSession
@@ -19,7 +18,6 @@ object MultiStreamTODO extends App {
   val logger = LogManager.getRootLogger
   logger.setLevel(Level.ERROR)
 
-  case class RateData(timestamp: Timestamp, value: Long)
 
   val df = spark.readStream
     .format("rate")
@@ -29,7 +27,7 @@ object MultiStreamTODO extends App {
     .load()
 
   import spark.implicits._
-
+  
   val rateData = df.as[RateData]
   val filteredDS = rateData.where("value < 20")
   val greaterThanDS = rateData.where("value > 21")
