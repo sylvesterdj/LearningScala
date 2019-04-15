@@ -30,7 +30,8 @@ object staticStreamRightOuterJoin extends App {
 
   val staticDepartmentDS = spark.read.format("csv").option("header","true").load("src/main/resources/department.csv")
 
-  val rightOuterJoinDS =  staticDepartmentDS.join(streamingEmployeeDS, $"id" === $"departmentId", "right_outer")
+  val rightOuterJoinDS =  staticDepartmentDS
+    .join(streamingEmployeeDS, $"id" === $"departmentId", "right_outer")
 
   val rightOuterJoinStream = rightOuterJoinDS.writeStream
     .format("console")

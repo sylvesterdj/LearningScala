@@ -1,5 +1,6 @@
 package streaming.kafka
 
+import org.apache.log4j.{Level, LogManager}
 import org.apache.spark.sql.SparkSession
 
 object Kafka2Kafka extends App{
@@ -9,9 +10,12 @@ object Kafka2Kafka extends App{
     .master("local[*]")
     .getOrCreate()
 
+  val logger = LogManager.getRootLogger
+  logger.setLevel(Level.ERROR)
+
   val df = spark.readStream.format("kafka")
     .option("kafka.bootstrap.servers", "localhost:9092").option("subscribe", "test")
-   .load()
+    .load()
 
    val kafkaRawData = df.selectExpr("CAST(key AS STRING)", "CAST(value AS string)", "topic", "partition", "offset", "timestamp","timestampType")
    val kafkaWriteStream = kafkaRawData.writeStream.format("kafka").option("topic", "test2")
